@@ -3,7 +3,7 @@ import incomeImg from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
 import { Container, TransactionTypeContainer, RadioBox } from "./styles";
 import Close from "../../assets/close.svg";
-import { useState } from "react";
+import React, { useState } from "react";
 
 type modalTransactionTypes = {
   isOpen: boolean;
@@ -15,6 +15,14 @@ export function ModalTransaction({
   onRequestClose,
 }: modalTransactionTypes) {
   const [type, setType] = useState("deposit");
+
+  const [title, setTitle] = useState("");
+  const [values, setValues] = useState(0);
+  const [category, setCategory] = useState("");
+
+  function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+  }
 
   return (
     <Modal
@@ -31,12 +39,22 @@ export function ModalTransaction({
           className="react-modal-close"
         />
       </button>
-      <Container>
+      <Container onSubmit={handleCreate}>
         <h2>Cadastrar nova transação</h2>
 
-        <input type="text" placeholder="Titulo" />
+        <input
+          type="text"
+          placeholder="Titulo"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-        <input type="number" placeholder="Valor" />
+        <input
+          type="number"
+          placeholder="Valor"
+          value={values}
+          onChange={(e) => setValues(Number(e.target.value))}
+        />
 
         <TransactionTypeContainer>
           <RadioBox
@@ -62,7 +80,12 @@ export function ModalTransaction({
           </RadioBox>
         </TransactionTypeContainer>
 
-        <input type="text" placeholder="Categoria" />
+        <input
+          type="text"
+          placeholder="Categoria"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
 
         <button type="submit">Cadastrar</button>
       </Container>
