@@ -4,6 +4,7 @@ import outcomeImg from "../../assets/outcome.svg";
 import { Container, TransactionTypeContainer, RadioBox } from "./styles";
 import Close from "../../assets/close.svg";
 import React, { useState } from "react";
+import { api } from "../../services/api";
 
 type modalTransactionTypes = {
   isOpen: boolean;
@@ -22,6 +23,10 @@ export function ModalTransaction({
 
   function handleCreate(e: React.FormEvent) {
     e.preventDefault();
+
+    const data = { title, type, values, category };
+
+    api.post("/transactions", data);
   }
 
   return (
