@@ -3,8 +3,8 @@ import incomeImg from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
 import { Container, TransactionTypeContainer, RadioBox } from "./styles";
 import Close from "../../assets/close.svg";
-import React, { useContext, useState } from "react";
-import { TransactionsContext } from "../../TransactionsContext";
+import React, { useState } from "react";
+import { useTransactions } from "../../hooks/UseTransactions";
 
 type modalTransactionTypes = {
   isOpen: boolean;
@@ -15,7 +15,7 @@ export function ModalTransaction({
   isOpen,
   onRequestClose,
 }: modalTransactionTypes) {
-  const { createTransaction } = useContext(TransactionsContext);
+  const { createTransaction } = useTransactions();
 
   const [type, setType] = useState("deposit");
 
@@ -87,9 +87,9 @@ export function ModalTransaction({
           <RadioBox
             type="button"
             onClick={() => {
-              setType("widthdraw");
+              setType("withdraw");
             }}
-            isActive={type === "widthdraw"}
+            isActive={type === "withdraw"}
             activeColor="red"
           >
             <img src={outcomeImg} alt="Saida" /> <span>Saida</span>
